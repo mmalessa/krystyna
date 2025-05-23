@@ -1,4 +1,8 @@
 # Krystyna
+```shell
+flutter pub get
+flutter build apk --release
+```
 
 
 ## Zainstaluj wymagane narzędzia (jeśli jeszcze nie masz)
