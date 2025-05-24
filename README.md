@@ -47,13 +47,40 @@ Jeśli pojawią się błędy np. z Android licenses, napraw to według wskazówe
 - Wybierz emulator lub podłączony telefon.
 - Kliknij Run ▶️ lub użyj skrótu Shift + F10.
 
-## Jeśli pojawią się błędy typu:
-🔸 NDK version mismatch:
+## Jeśli pojawią się błędy
+### NDK version mismatch
 Sprawdź plik android/local.properties i upewnij się, że masz taką linię:
 `ndkVersion=27.0.12077973`
 Upewnij się, że w Android Studio masz zainstalowaną właśnie tę wersję NDK:
 
 'Android Studio → SDK Manager → SDK Tools → NDK (zaznacz i wybierz konkretną wersję)'
+
+### flutter daemon terminated
+```shell
+sudo apt install adb
+```
+```shell
+$ lsusb
+Bus 001 Device 006: ID 18d1:4ee7 Google Inc. Nexus Device
+
+$ sudo vim /etc/udev/rules.d/51-android.rules
+SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="plugdev"
+
+#SUBSYSTEM=="usb", ATTR{idVendor}=="0bb4", MODE="0666", GROUP="plugdev"
+#SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="plugdev"
+#SUBSYSTEM=="usb", ATTR{idVendor}=="12d1", MODE="0666", GROUP="plugdev"
+
+$ sudo chmod a+r /etc/udev/rules.d/51-android.rules
+
+$ sudo udevadm control --reload-rules
+$ sudo service udev restart
+$ adb kill-server
+$ adb start-server
+
+$ adb devices
+List of devices attached
+0123456789ABCDEF	device
+```
 
 ## iOS Development
 Jeśli chcesz uruchomić aplikację na iOS, upewnij się, że masz zainstalowane Xcode i CocoaPods.
