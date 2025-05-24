@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:krystyna/screens/home.dart';
 
-final theme = ThemeData(
-  useMaterial3: true,
-  colorScheme: ColorScheme.fromSeed(
-    brightness: Brightness.dark,
-    seedColor: const Color.fromARGB(255, 131, 57, 0),
-  ),
-  textTheme: GoogleFonts.latoTextTheme().apply(
-    bodyColor: Colors.white54,
-    displayColor: Colors.white70
-  ),
-);
+// final theme = ThemeData(
+//   useMaterial3: true,
+//   colorScheme: ColorScheme.fromSeed(
+//     brightness: Brightness.dark,
+//     seedColor: const Color.fromARGB(255, 131, 57, 0),
+//   ),
+//   textTheme: GoogleFonts.latoTextTheme().apply(
+//     bodyColor: Colors.white54,
+//     displayColor: Colors.white70
+//   ),
+// );
 
 void main() {
   runApp(const App());
@@ -24,7 +24,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: theme,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.system,
       home: HomeScreen(),
     );
   }
