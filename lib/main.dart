@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
-import 'package:krystyna/screens/home.dart';
+// import 'package:krystyna/screens/home.dart';
+import 'package:krystyna/screens/start.dart';
 
 // final theme = ThemeData(
 //   useMaterial3: true,
@@ -27,7 +28,7 @@ class App extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
-      home: HomeScreen(),
+      home: StartScreen()
     );
   }
 }

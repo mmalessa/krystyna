@@ -51,30 +51,35 @@ class _SpeechDemoState extends State<SpeechDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      // padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            _spokenText,
-            style: const TextStyle(fontSize: 20),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton.icon(
-            onPressed: _isListening ? null : _listen,
-            icon: const Icon(Icons.mic),
-            label: const Text("Mów"),
-          ),
-          const SizedBox(height: 10),
-          ElevatedButton.icon(
-            onPressed: () => _speak(_spokenText),
-            icon: const Icon(Icons.volume_up),
-            label: const Text("Powiedz to"),
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Speech demo'),
       ),
+      body: Center(
+        // padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              _spokenText,
+              style: const TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton.icon(
+              onPressed: _isListening ? null : _listen,
+              icon: const Icon(Icons.mic),
+              label: const Text("Mów"),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton.icon(
+              onPressed: () => _speak(_spokenText),
+              icon: const Icon(Icons.volume_up),
+              label: const Text("Powiedz to"),
+            ),
+          ],
+        ),
+      )
     );
   }
 }
