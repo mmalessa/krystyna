@@ -123,36 +123,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
             )
           ),
 
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Cancel'),
-                ),
-                SizedBox(width: 12),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _isLoading = true;
-                    });
-
-                    Future.delayed(Duration(seconds: 2), () {
-                      setState(() {
-                        _isLoading = false;
-                      });
+          bottomNavigationBar: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
                       Navigator.of(context).pop();
-                    });
-                  },
-                  child: Text('Save'),
-                ),
-              ],
+                    },
+                    child: Text('Cancel'),
+                  ),
+                  SizedBox(width: 12),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _isLoading = true;
+                      });
+
+                      Future.delayed(Duration(seconds: 2), () {
+                        setState(() {
+                          _isLoading = false;
+                        });
+                        Navigator.of(context).pop();
+                      });
+                    },
+                    child: Text('Save'),
+                  ),
+                ],
+              ),
             ),
-          ),
+          )
         ),
         if (_isLoading)
           Container(
