@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:krystyna/screens/settings.dart';
 import 'package:krystyna/screens/something.dart';
 import 'package:krystyna/screens/speech_demo.dart';
+import 'package:krystyna/widgets/main_drawer_item.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
 
-  void _selectPage(BuildContext context, Widget page)  {
+  void _selectScreen(BuildContext context, Widget page)  {
+    Navigator.of(context).pop(); // Close drawer
     Navigator.of(context).push(
         MaterialPageRoute(
             builder: (ctx) => page
@@ -43,57 +45,21 @@ class MainDrawer extends StatelessWidget {
               ],
             )
           ),
-          ListTile(
-            leading: Icon(
-              Icons.settings,
-              size: 26,
-              color: Theme.of(context).colorScheme.onBackground,
-            ),
-            title: Text(
-              'Settings',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: Theme.of(context).colorScheme.onBackground,
-                fontSize: 22
-              )
-            ),
-            onTap: () {
-              _selectPage(context, SettingsScreen());
-            },
+          MainDrawerItem(
+            icon: Icons.settings,
+            title: 'Settings',
+            onTap: () { _selectScreen(context, SettingsScreen()); }
           ),
-          ListTile(
-            leading: Icon(
-              Icons.question_answer,
-              size: 26,
-              color: Theme.of(context).colorScheme.onBackground,
-            ),
-            title: Text(
-                'Speech demo',
-                style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontSize: 22
-                )
-            ),
-            onTap: () {
-              _selectPage(context, SpeechDemo());
-            },
+          MainDrawerItem(
+            icon: Icons.question_answer,
+            title: 'Speech demo',
+            onTap: () { _selectScreen(context, SpeechDemo()); }
           ),
-          ListTile(
-            leading: Icon(
-              Icons.question_mark,
-              size: 26,
-              color: Theme.of(context).colorScheme.onBackground,
-            ),
-            title: Text(
-                'Something',
-                style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontSize: 22
-                )
-            ),
-            onTap: () {
-              _selectPage(context, SomethingScreen());
-            },
-          )
+          MainDrawerItem(
+            icon: Icons.question_mark,
+            title: 'Something',
+            onTap: () { _selectScreen(context, SomethingScreen()); }
+          ),
         ],
       ),
     );

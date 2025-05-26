@@ -5,13 +5,13 @@ import 'package:krystyna/widgets/main_drawer.dart';
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
 
-  void _selectModule(BuildContext context, String moduleName)  {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-          builder: (ctx) => SpeechDemo()
-      )
-    );
-  }
+  // void _selectModule(BuildContext context, String moduleName)  {
+  //   Navigator.of(context).push(
+  //     MaterialPageRoute(
+  //         builder: (ctx) => SpeechDemo()
+  //     )
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +20,17 @@ class StartScreen extends StatelessWidget {
         title: const Text('Krystyna App'),
       ),
       drawer: MainDrawer(),
-      body: InkWell(
-        onTap: () {
-          _selectModule(context, 'moduleName');
-        },
-        child: Center(
-          child: const Text('Speech demo'),
-        ),
+      body: Center(
+        child: Text('Start page'),
       )
+      // body: InkWell(
+      //   onTap: () {
+      //     _selectModule(context, 'moduleName');
+      //   },
+      //   child: Center(
+      //     child: const Text('Speech demo'),
+      //   ),
+      // )
     );
   }
 
