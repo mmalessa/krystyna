@@ -33,13 +33,24 @@ class MainDrawer extends StatelessWidget {
               )
             ),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              textBaseline: TextBaseline.alphabetic,
               children: [
-                Icon(Icons.woman_2, size: 48, color: Theme.of(context).colorScheme.primary),
+                Baseline(
+                  baseline: 32,
+                  baselineType: TextBaseline.alphabetic,
+                  child: Image.asset(
+                    'assets/icon/icon_fg_128.png',
+                    width: 48,
+                    height: 48,
+                  ),
+                ),
                 const SizedBox(width: 18),
                 Text(
                   'Krystyna',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.primary
+                    // color: Theme.of(context).colorScheme.primary,
+                    fontSize: 32,
                   )
                 )
               ],
