@@ -94,3 +94,17 @@ cd ios
 pod install --repo-update
 cd ..
 ```
+
+# Ikona
+1. Stwórz ikonę w formacie PNG. Zalecany rozmiar: 1024x1024 px, kwadratowa. Nazwij plik np. icon.png.
+2. pubspec.yaml
+  dev_dependencies:
+    flutter_launcher_icons: ^0.13.1  # lub najnowsza wersja
+  flutter_launcher_icons:
+    image_path: "assets/icon/icon.png"
+    android: true
+    ios: true
+3. terminal  
+    flutter pub get
+    // flutter pub run flutter_launcher_icons:main // deprecated
+    dart run flutter_launcher_icons
