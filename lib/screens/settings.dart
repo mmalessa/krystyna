@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -10,14 +10,21 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _isLoading = false;
-  bool isOn = false;
-  String? selectedValue;
-  final options = ['Opcja 1', 'Opcja 2', 'Opcja 3'];
-  bool isChecked = false;
   bool _isPasswordVisible = false;
-  String segmentedButtonVelue = 'sec';
+  final TextEditingController _valueController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  bool isOn = false;
+  bool isChecked = false;
+  String segmentedButtonValue = 'sec';
   double sliderValue = 0.7;
-  String? _selectedOption;
+
+  String someValue = '';
+  String somePassword = '';
+
+  final dropdownOptions = ['Opcja 1', 'Opcja 2', 'Opcja 3'];
+  String dropdownValue = 'Opcja 3';
+  
   final List<String> listOptions = [
     'Opcja 1',
     'Opcja 2',
@@ -26,6 +33,86 @@ class _SettingsScreenState extends State<SettingsScreen> {
     'Opcja 5',
     'Opcja 6',
   ];
+  String listValue = 'Opcja 1';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadConfig();
+  }
+
+  @override
+  void dispose() {
+    _valueController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadConfig() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      isOn = prefs.getBool('isOn') ?? false;
+      isChecked = prefs.getBool('isChecked') ?? false;
+      sliderValue = prefs.getDouble('sliderValue') ?? 0;
+      segmentedButtonValue = prefs.getString('segmentedButtonValue') ?? '';
+      dropdownValue = prefs.getString('dropdownValue') ?? dropdownOptions[0];
+      listValue = prefs.getString('listValue') ?? listOptions[0];
+      someValue = prefs.getString('someValue') ?? '';
+      somePassword = prefs.getString('somePassword') ?? '';
+    });
+    _valueController.text = someValue;
+    _passwordController.text = somePassword;
+  }
+
+  Future<void> _saveOption(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    switch(key) {
+      case 'isOn':
+        prefs.setBool('isOn', isOn);
+        break;
+      case 'isChecked':
+        prefs.setBool('isChecked', isChecked);
+        break;
+      case 'sliderValue':
+        prefs.setDouble('sliderValue', sliderValue);
+        break;
+      case 'segmentedButtonValue':
+        prefs.setString('segmentedButtonValue', segmentedButtonValue);
+        break;
+      case 'dropdownValue':
+        prefs.setString('dropdownValue', dropdownValue);
+        break;
+      case 'listValue':
+        prefs.setString('listValue', listValue);
+        break;
+      case 'someValue':
+        prefs.setString('someValue', someValue);
+        break;
+      case 'somePassword':
+        prefs.setString('somePassword', somePassword);
+        break;
+    }
+  }
+
+  Future<void> _saveConfig() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await Future.wait([
+      prefs.setBool('isOn', isOn),
+      prefs.setBool('isChecked', isChecked),
+      prefs.setDouble('sliderValue', sliderValue),
+      prefs.setString('segmentedButtonValue', segmentedButtonValue),
+      prefs.setString('dropdownValue', dropdownValue),
+      prefs.setString('listValue', listValue),
+      prefs.setString('someValue', someValue),
+      prefs.setString('somePassword', somePassword),
+    ]);
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   void _showPopup(BuildContext context) {
     showDialog(
@@ -71,19 +158,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(height: 15),
 
                 TextField(
+                  controller: _valueController,
+                  onChanged: (String value) {
+                    setState(() {
+                      someValue = value;
+                      _valueController.text = someValue;
+                      _saveOption('someValue');
+                    });
+                  },
                   decoration: InputDecoration(
                     labelText: 'Wprowadź wartość',
                     border: OutlineInputBorder(),
                   ),
-                  // onChanged: (value) {
-                  //   print('Wartość: $value');
-                  // },
                 ),
 
                 const SizedBox(height: 15),
 
                 TextField(
+                  controller: _passwordController,
                   obscureText: !_isPasswordVisible,
+                  onChanged: (String value) {
+                    setState(() {
+                      somePassword = value;
+                      _passwordController.text = somePassword;
+                      _saveOption('somePassword');
+                    });
+                  },
                   decoration: InputDecoration(
                     labelText: 'Hasło tajemne',
                     border: OutlineInputBorder(),
@@ -109,6 +209,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onChanged: (value) {
                         setState(() {
                           isOn = value;
+                          _saveOption('isOn');
                         });
                       },
                     ),
@@ -122,8 +223,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     DropdownButton<String>(
                       hint: Text('Wybierz opcję'),
-                      value: selectedValue,
-                      items: options.map((String value) {
+                      value: dropdownValue,
+                      items: dropdownOptions.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -131,7 +232,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       }).toList(),
                       onChanged: (String? newValue) {
                         setState(() {
-                          selectedValue = newValue;
+                          dropdownValue = newValue ?? '';
+                          _saveOption('dropdownValue');
                         });
                       },
                     ),
@@ -147,6 +249,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onChanged: (bool? value) {
                         setState(() {
                           isChecked = value!;
+                          _saveOption('isChecked');
                         });
                       },
                     ),
@@ -185,10 +288,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         icon: Icon(Icons.calendar_view_day)
                     ),
                   ],
-                  selected: <String>{segmentedButtonVelue},
+                  selected: <String>{segmentedButtonValue},
                   onSelectionChanged: (Set<String> newSelection) {
                     setState(() {
-                      segmentedButtonVelue = newSelection.first;
+                      segmentedButtonValue = newSelection.first;
+                      _saveOption('segmentedButtonValue');
                     });
                   },
                 ),
@@ -200,6 +304,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onChanged: (value) {
                       setState(() {
                         sliderValue = value;
+                        _saveOption('sliderValue');
                       });
                     }
                 ),
@@ -217,14 +322,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   children: listOptions.map((option) {
-                    bool isSelected = option == _selectedOption;
+                    bool isSelected = option == listValue;
                     return ListTile(
                       title: Text(option),
                       tileColor: isSelected ? Colors.grey.withOpacity(0.2) : null,
                       trailing: isSelected ? Icon(Icons.check, color: Colors.blue) : null,
                       onTap: () {
                         setState(() {
-                          _selectedOption = option;
+                          listValue = option;
+                          _saveOption('listValue');
                         });
                       },
                     );
@@ -244,24 +350,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('Cancel'),
+                    child: Text('Close'),
                   ),
-                  SizedBox(width: 12),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _isLoading = true;
-                      });
-
-                      Future.delayed(Duration(seconds: 2), () {
-                        setState(() {
-                          _isLoading = false;
-                        });
-                        Navigator.of(context).pop();
-                      });
-                    },
-                    child: Text('Save'),
-                  ),
+                  // SizedBox(width: 12),
+                  // ElevatedButton(
+                  //   onPressed: () {
+                  //     setState(() {
+                  //       _isLoading = true;
+                  //     });
+                  //
+                  //     // _saveConfig(); //
+                  //     Future.delayed(Duration(seconds: 1), () {
+                  //       setState(() {
+                  //         _isLoading = false;
+                  //       });
+                  //       Navigator.of(context).pop();
+                  //     });
+                  //
+                  //   },
+                  //   child: Text('Save'),
+                  // ),
                 ],
               ),
             ),
