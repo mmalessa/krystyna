@@ -36,22 +36,20 @@ class MainDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               textBaseline: TextBaseline.alphabetic,
               children: [
-                Baseline(
-                  baseline: 32,
-                  baselineType: TextBaseline.alphabetic,
-                  child: Image.asset(
-                    'assets/icon/icon_fg_128.png',
-                    width: 48,
-                    height: 48,
-                  ),
+                Icon(
+                  Icons.home,
+                  size: 48,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 const SizedBox(width: 18),
-                Text(
-                  'Krystyna',
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    // color: Theme.of(context).colorScheme.primary,
-                    fontSize: 32,
-                  )
+                Expanded(
+                  child: Text(
+                    'Krystyna',
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontSize: 32,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 )
               ],
             )

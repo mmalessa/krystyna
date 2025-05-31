@@ -1,0 +1,22 @@
+{
+  "@@locale": "sk",
+  "appTitle": "Krystyna",
+  "settings": "Nastavenia",
+  "generalSettings": "Všeobecné nastavenia",
+  "enterValue": "Zadajte hodnotu",
+  "secretPassword": "Tajné heslo",
+  "someSwitch": "Nejaký prepínač",
+  "selectOption": "Vyberte možnosť",
+  "checkboxOption": "Možnosť zaškrtávacieho poľa",
+  "close": "Zavrieť",
+  "language": "Jazyk",
+  "english": "Angličtina",
+  "polish": "Poľština",
+  "german": "Nemčina",
+  "spanish": "Španielčina",
+  "french": "Francúzština",
+  "ukrainian": "Ukrajinčina",
+  "czech": "Čeština",
+  "slovak": "Slovenčina",
+  "italian": "Taliančina"
+} 

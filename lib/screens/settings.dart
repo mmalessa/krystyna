@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:krystyna/providers/settings_provider.dart';
 import 'package:krystyna/widgets/settings/settings_text_field.dart';
 import 'package:krystyna/widgets/settings/settings_switch.dart';
+import 'package:krystyna/widgets/language_selector.dart';
 import 'package:krystyna/config/constants.dart';
+import 'package:krystyna/generated/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -43,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           content: Text(message),
           actions: [
             TextButton(
-              child: const Text("Zamknij"),
+              child: Text(AppLocalizations.of(context)?.close ?? 'Close'),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ],
@@ -54,11 +56,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    
     return Consumer<SettingsProvider>(
       builder: (context, settings, child) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Settings'),
+            title: Text(localizations?.settings ?? 'Settings'),
           ),
           body: LayoutBuilder(
             builder: (context, constraints) {
@@ -67,17 +71,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Ustawienia ogólne",
-                      style: TextStyle(
+                    Text(
+                      localizations?.generalSettings ?? 'General Settings',
+                      style: const TextStyle(
                         fontSize: AppConstants.titleFontSize,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: AppConstants.defaultPadding),
                     
+                    const LanguageSelector(),
+                    
+                    const SizedBox(height: AppConstants.defaultPadding),
+                    
                     SettingsTextField(
-                      label: 'Wprowadź wartość',
+                      label: localizations?.enterValue ?? 'Enter value',
                       value: settings.someValue,
                       controller: _valueController,
                       onChanged: (value) => settings.updateSetting('someValue', value),
@@ -86,7 +94,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     const SizedBox(height: AppConstants.defaultPadding),
                     
                     SettingsTextField(
-                      label: 'Hasło tajemne',
+                      label: localizations?.secretPassword ?? 'Secret password',
                       value: settings.somePassword,
                       controller: _passwordController,
                       isPassword: !_isPasswordVisible,
@@ -96,7 +104,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     const SizedBox(height: AppConstants.defaultPadding),
                     
                     SettingsSwitch(
-                      label: 'Jakiś przełącznik',
+                      label: localizations?.someSwitch ?? 'Some switch',
                       value: settings.isOn,
                       onChanged: (value) => settings.updateSetting('isOn', value),
                     ),
@@ -104,9 +112,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     const SizedBox(height: AppConstants.defaultPadding),
                     
                     DropdownButtonFormField<String>(
-                      decoration: const InputDecoration(
-                        labelText: 'Wybierz opcję',
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: localizations?.selectOption ?? 'Select option',
+                        border: const OutlineInputBorder(),
                       ),
                       value: settings.dropdownValue,
                       items: SettingsProvider.dropdownOptions.map((String value) {
@@ -125,7 +133,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     const SizedBox(height: AppConstants.defaultPadding),
                     
                     CheckboxListTile(
-                      title: const Text('Opcja do zaznaczenia'),
+                      title: Text(localizations?.checkboxOption ?? 'Checkbox option'),
                       value: settings.isChecked,
                       onChanged: (bool? value) {
                         if (value != null) {

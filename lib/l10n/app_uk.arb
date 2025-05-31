@@ -1,0 +1,22 @@
+{
+  "@@locale": "uk",
+  "appTitle": "Krystyna",
+  "settings": "Налаштування",
+  "generalSettings": "Загальні налаштування",
+  "enterValue": "Введіть значення",
+  "secretPassword": "Секретний пароль",
+  "someSwitch": "Перемикач",
+  "selectOption": "Виберіть опцію",
+  "checkboxOption": "Опція прапорця",
+  "close": "Закрити",
+  "language": "Мова",
+  "english": "Англійська",
+  "polish": "Польська",
+  "german": "Німецька",
+  "spanish": "Іспанська",
+  "french": "Французька",
+  "ukrainian": "Українська",
+  "czech": "Чеська",
+  "slovak": "Словацька",
+  "italian": "Італійська"
+} 

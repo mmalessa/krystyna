@@ -1,0 +1,22 @@
+{
+  "@@locale": "en",
+  "appTitle": "Krystyna",
+  "settings": "Settings",
+  "generalSettings": "General Settings",
+  "enterValue": "Enter value",
+  "secretPassword": "Secret password",
+  "someSwitch": "Some switch",
+  "selectOption": "Select option",
+  "checkboxOption": "Checkbox option",
+  "close": "Close",
+  "language": "Language",
+  "english": "English",
+  "polish": "Polish",
+  "german": "German",
+  "spanish": "Spanish",
+  "french": "French",
+  "ukrainian": "Ukrainian",
+  "czech": "Czech",
+  "slovak": "Slovak",
+  "italian": "Italian"
+} 

@@ -2,16 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
+  static final TextTheme _baseTextTheme = TextTheme(
+    bodyLarge: GoogleFonts.roboto(
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+    ),
+    bodyMedium: GoogleFonts.roboto(
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+    ),
+    titleLarge: GoogleFonts.roboto(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),
+  );
+
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color.fromARGB(255, 131, 57, 0),
     ),
-    textTheme: GoogleFonts.latoTextTheme(),
-    appBarTheme: const AppBarTheme(
+    textTheme: _baseTextTheme,
+    appBarTheme: AppBarTheme(
       elevation: 0,
       centerTitle: true,
+      titleTextStyle: GoogleFonts.roboto(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -19,9 +38,13 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
+        textStyle: GoogleFonts.roboto(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -36,13 +59,18 @@ class AppTheme {
       brightness: Brightness.dark,
       seedColor: const Color.fromARGB(255, 131, 57, 0),
     ),
-    textTheme: GoogleFonts.latoTextTheme().apply(
+    textTheme: _baseTextTheme.apply(
       bodyColor: Colors.white70,
       displayColor: Colors.white,
     ),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       elevation: 0,
       centerTitle: true,
+      titleTextStyle: GoogleFonts.roboto(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -50,9 +78,13 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
+        textStyle: GoogleFonts.roboto(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),

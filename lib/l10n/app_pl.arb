@@ -1,0 +1,22 @@
+{
+  "@@locale": "pl",
+  "appTitle": "Krystyna",
+  "settings": "Ustawienia",
+  "generalSettings": "Ustawienia ogólne",
+  "enterValue": "Wprowadź wartość",
+  "secretPassword": "Hasło tajemne",
+  "someSwitch": "Jakiś przełącznik",
+  "selectOption": "Wybierz opcję",
+  "checkboxOption": "Opcja do zaznaczenia",
+  "close": "Zamknij",
+  "language": "Język",
+  "english": "Angielski",
+  "polish": "Polski",
+  "german": "Niemiecki",
+  "spanish": "Hiszpański",
+  "french": "Francuski",
+  "ukrainian": "Ukraiński",
+  "czech": "Czeski",
+  "slovak": "Słowacki",
+  "italian": "Włoski"
+} 
