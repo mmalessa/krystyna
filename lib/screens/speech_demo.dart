@@ -1,4 +1,5 @@
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:krystyna/voice_commands/command_parser.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class SpeechDemo extends StatefulWidget {
 class _SpeechDemoState extends State<SpeechDemo> {
   final FlutterTts _tts = FlutterTts();
   final stt.SpeechToText _stt = stt.SpeechToText();
+  String? _finalResult;
 
   String _spokenText = "Naciśnij przycisk i mów";
   bool _isListening = false;
@@ -25,18 +27,33 @@ class _SpeechDemoState extends State<SpeechDemo> {
 
   Future<void> _listen() async {
     bool available = await _stt.initialize(
-      onStatus: (status) {
+      onStatus: (status) async {
         if (status == 'notListening') {
           setState(() => _isListening = false);
+        }
+        if (status == 'done' && _finalResult != null) {
+          final cmd = parseCommand(_finalResult!);
+
+          final action = cmd['action'];
+          final target = cmd['target'];
+          final response = cmd['response'];
+
+          if (action != null && target != null) {
+            await _speak("Będę robić: $response");
+          } else {
+            // print("Nie udało się sparsować komendy.");
+          }
         }
       },
     );
     if (available) {
+      _finalResult = null;
       setState(() => _isListening = true);
       await _stt.listen(
         localeId: "pl_PL",
         onResult: (result) {
           setState(() => _spokenText = result.recognizedWords);
+          _finalResult = result.recognizedWords;
         },
       );
     }
